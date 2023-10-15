@@ -5,7 +5,8 @@ class MyList
 {
     struct Neighbour
     {
-        int id;
+        int id = 1; //=1 w celu sprawdzenia czy listia sasiadow jest zapoczatkowana
+                    //PATRZ: MyList.cpp metoda addNeighbour
         int distance;
         Neighbour* next;
     };

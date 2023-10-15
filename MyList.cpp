@@ -65,7 +65,7 @@ void MyList::addNeighbour(int index, int distance)
     Neighbour* neighbour = new Neighbour;
     ElemList* startingCity = look4Index(index);
     neighbour = startingCity->data;
-    if (neighbour->id == 0){
+    if (neighbour->id == 0){ //
         while (neighbour->id >= 0)
         {
             neighbour = neighbour->next;
@@ -80,7 +80,7 @@ void MyList::addNeighbour(int index, int distance)
     neighbour->next = new Neighbour;
     neighbour->distance = distance;
     neighbour->next->id = -1 * (neighbour->id + 1);
-    std::cout << "dodalem " << neighbour->id<<"\n";
+    //std::cout << "dodalem " << neighbour->id<<"\n";
 }
 
 
@@ -137,7 +137,9 @@ void MyList::clearList() {
 
 int MyList::findDistance(int A, int B)
 {
-    return 0;
+    tempN = look4Index(A)->data;
+    while (tempN->id != B) tempN = tempN->next;
+    return tempN->distance;
 }
 
 int MyList::size()

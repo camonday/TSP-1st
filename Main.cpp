@@ -78,9 +78,18 @@ void menu_brute()
             myList.loadFromFile(fileName);
             myList.display();
             //brute
-            std::cout << "\n\nROZWIAZANIE\n";
+            
+            timeStart = steady_clock::now();
+
             wynik = brute(myList, myList.size());
+
+            timeEnd = steady_clock::now();
+
+            timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
+            
+            std::cout << "\n\nROZWIAZANIE\n";
             showWynikB(wynik, myList.size());
+            std::cout << "\n czas: " << timeTemp.count() << " sekund";
             break;
 
         case '2':  //tutaj generowanie danych
@@ -88,6 +97,18 @@ void menu_brute()
             std::cin >> value;
             myList.generateList(value);
             myList.display();
+            timeStart = steady_clock::now();
+
+            wynik = brute(myList, myList.size());
+
+            timeEnd = steady_clock::now();
+
+            timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
+
+            std::cout << "\n\nROZWIAZANIE\n";
+            showWynikB(wynik, myList.size());
+            std::cout << "\n czas: " << timeTemp.count() << " sekund";
+
             break;
 
         case '3':  //tutaj wyświetlanie danych
@@ -102,7 +123,7 @@ void menu_brute()
             file.imbue(std::locale(std::locale::classic(), new Comma));
             int* values = new int[trial];
             int* indexes = new int[trial];
-            for (int n = 0; n < 8; n++) {
+            for (int n = 2; n < 12; n++) {
                 cout << n;
                 timeSum -= timeSum;
                 for (int i = 0; i < 100; i++) {
@@ -112,7 +133,7 @@ void menu_brute()
                     //std::cout << std::endl << i;
                     timeStart = steady_clock::now();
 
-                    //do a test
+                    brute(myList, n);
 
                     timeEnd = steady_clock::now();
 
@@ -121,9 +142,7 @@ void menu_brute()
                     //std::cout << " timeTemp " << timeTemp.count();
                 }
 
-                file << "\nZrobilismy 100 populacji wielkosci: " << n;
-                file << "\n Laczny czas to: ";
-                file << timeSum.count() << "sekund\n";
+                file << n <<" " << timeSum.count()<<"\n";
 
             }
         }
@@ -171,8 +190,8 @@ WynikB brute(MyList miasta, int ileMiast)
     
 
     WynikB wynik;
-    int ileR = silnia(ileMiast - 1);
-    for (int x = 1; x <= ileR; x++)
+    int S = silnia(ileMiast - 1);
+    for (int x = 1; x <= S; x++)
     {
         //cout << "\n\n" << x<<"\n";
         //stworz liste sasiadow
@@ -188,14 +207,12 @@ WynikB brute(MyList miasta, int ileMiast)
         int suma = 0;
         int pozycja;
         
-
-        
-
         while (!(sasiad_list.empty()) /*or wynik.suma wieksze niz suma*/) {
             pozycja = (obecne_id + x) % sasiad_list.size();
             next_id = sasiad_list.at(pozycja);
 
             suma += miasta.findDistance(obecne_id, next_id);
+            if (suma >= wynik.suma) break;
 
             obecne_id = next_id;
             it = sasiad_list.begin();
@@ -203,11 +220,11 @@ WynikB brute(MyList miasta, int ileMiast)
             sasiad_list.erase(it);
         }
         suma += miasta.findDistance(obecne_id, 0);
-        cout << "\nSUMA: " << suma;
+        //cout << "\nSUMA: " << suma;
         if(suma<wynik.suma){
             wynik.suma = suma;
             wynik.zmienna = x;
-            cout << "  - nowy najlepszy";
+            //cout << "  - nowy najlepszy";
         }
     }
     return wynik;
@@ -224,12 +241,17 @@ void showWynikB(WynikB wynik, int ileMiast)
 {
     std::vector<int> sasiad_list;
     for (int i = 0; i < ileMiast; i++) sasiad_list.push_back(i);
-
-    int obecne_id = 0;
-    int next_id = 0;
-    int pozycja;
     vector<int>::iterator it;
 
+    int obecne_id = 0;
+    it = sasiad_list.begin();
+    sasiad_list.erase(it);
+
+    int next_id = 0;
+    int suma = 0;
+    int pozycja;
+
+    std::cout << obecne_id << " ";
     while (!(sasiad_list.empty()) /*or wynik.suma wieksze niz suma*/) {
         pozycja = (obecne_id + wynik.zmienna) % sasiad_list.size();
         next_id = sasiad_list.at(pozycja);
@@ -238,8 +260,9 @@ void showWynikB(WynikB wynik, int ileMiast)
         it += pozycja;
         sasiad_list.erase(it);
 
-        std::cout << obecne_id << " ";
+        
         obecne_id = next_id;
+        std::cout << obecne_id << " ";
     }
     cout << "\nSUMA: " << wynik.suma;
 }
