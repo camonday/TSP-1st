@@ -188,7 +188,6 @@ int main(int argc, char* argv[])
 WynikB brute(MyList miasta, int ileMiast)
 {
     
-
     WynikB wynik;
     int S = silnia(ileMiast - 1);
     for (int x = 1; x <= S; x++)
@@ -201,13 +200,13 @@ WynikB brute(MyList miasta, int ileMiast)
 
         int obecne_id = 0;
         it = sasiad_list.begin();
-        sasiad_list.erase(it);
+        sasiad_list.erase(it); //odwiedzilismy juz miasto 0 wiec je usuwamy
 
         int next_id = 0;
         int suma = 0;
         int pozycja;
         
-        while (!(sasiad_list.empty()) /*or wynik.suma wieksze niz suma*/) {
+        while (!(sasiad_list.empty())) {
             pozycja = (obecne_id + x) % sasiad_list.size();
             next_id = sasiad_list.at(pozycja);
 
@@ -218,6 +217,7 @@ WynikB brute(MyList miasta, int ileMiast)
             it = sasiad_list.begin();
             it += pozycja;
             sasiad_list.erase(it);
+            //cout << " .";
         }
         suma += miasta.findDistance(obecne_id, 0);
         //cout << "\nSUMA: " << suma;
@@ -252,7 +252,7 @@ void showWynikB(WynikB wynik, int ileMiast)
     int pozycja;
 
     std::cout << obecne_id << " ";
-    while (!(sasiad_list.empty()) /*or wynik.suma wieksze niz suma*/) {
+    while (!(sasiad_list.empty())) {
         pozycja = (obecne_id + wynik.zmienna) % sasiad_list.size();
         next_id = sasiad_list.at(pozycja);
 
