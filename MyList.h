@@ -23,25 +23,23 @@ class MyList
     Neighbour* tempN = NULL;
     int maxIndex = 0; //maksymalny indeks jaki mozna dodac
 
-public:
 
-    void display();
+
 
     ElemList* look4Index(int index);
-
     void addValue(int index);
-
     void addNeighbour(int index, int distance);
-
-
     void deleteFromList_byIndex(int index);
 
+public:
+    //Overiden:
+    void display();
     int loadFromFile(const std::string& FileName);
-
-    void generateList(int size);
-
-    void clearList();
+    void generate(int size);
+    void clear();
     int findDistance(int A, int B);
     int size();
-};
+    int getMinDistance(int A);
 
+};
+   

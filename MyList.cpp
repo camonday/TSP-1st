@@ -115,8 +115,8 @@ void MyList::deleteFromList_byIndex(int index) {
     }
 }
 
-void MyList::generateList(int size) {
-    clearList(); //czyscimy liste
+void MyList::generate(int size) {
+    clear(); //czyscimy liste
     for (int i = 0; i < size; i++) {
         addValue(maxIndex);
         Neighbour* neighbour = new Neighbour;
@@ -129,7 +129,7 @@ void MyList::generateList(int size) {
     }
 }
 
-void MyList::clearList() {
+void MyList::clear() {
     while (maxIndex != 0) { //usuwamy kazdy element z kisty tak dlugo, az lista ma zero elementow
         deleteFromList_byIndex(maxIndex - 1);
     }
@@ -147,8 +147,13 @@ int MyList::size()
     return (tail->id)+1;
 }
 
+int MyList::getMinDistance(int A)
+{
+    return 0;
+}
+
 int MyList::loadFromFile(const std::string& FileName) {
-    clearList(); //czyscimy liste
+    clear(); //czyscimy liste
     std::fstream file;
     file.open(FileName);
 
