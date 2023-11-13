@@ -2,6 +2,7 @@
 #include <queue>
 #include <list>
 #include "MyList.h"
+#include "Algorytm.h"
 
 
 	struct Przystanek {
@@ -12,7 +13,7 @@
 		std::list <int> jno; //Jeszcze Nie Odwiedzeni
 	};
 
-class BnB {
+class BnB : public Algorytm {
 	
 private:
 	 std::queue <Przystanek*> obecny_poziom;
@@ -29,5 +30,6 @@ private:
 	 void ZnajdzUB();
 
 public:
-	 int ZnajdzNajlepsze(MyList* przekazaneMiasta);
+	 int ZnajdzNajlepsze(MyList* przekazaneMiasta) override;
+	 void showWynik() override;
 };

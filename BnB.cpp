@@ -3,7 +3,7 @@
 
 void BnB::OdwiedzPrzystanek()
 {
-	std::cout << "\n\n Nowy badany: " << badany->id<<" sasiedzi: ";
+	//std::cout << "\n\n Nowy badany: " << badany->id<<" sasiedzi: ";
 	for (int& sasiad : badany->jno)
 	{
 		
@@ -35,7 +35,7 @@ void BnB::OdwiedzPrzystanek()
 			
 			//jesli cala sciezka jest lepsza niz dotychczasowy najlepszy to mamy nowego najlepszego
 			if (nowy->waga <= waga_UB) {
-				std::cout << sasiad << ", ";
+				//std::cout << sasiad << ", ";
 				waga_UB = nowy->waga;
 				for (int& przystanek : nowy->sciezka) {
 					sciezka_UB.push_back(przystanek);
@@ -51,7 +51,7 @@ void BnB::OdwiedzPrzystanek()
 		else {
 			nowy->lower_bound = PoliczLB(*nowy);
 			if (nowy->lower_bound <= waga_UB) {
-				następny_poziom.push(nowy); std::cout << sasiad << ", ";
+				następny_poziom.push(nowy); //std::cout << sasiad << ", ";
 			}
 			else delete nowy;
 		}
@@ -62,7 +62,7 @@ void BnB::OdwiedzPrzystanek()
 
 void BnB::idzDo_NastepnyPoziom()
 {
-	std::cout << "\n\nNowyPoziom!!!";
+	//std::cout << "\n\nNowyPoziom!!!";
 	//wezly z nastepnego poziomu przechodza na liste obecnego poziomu
 	obecny_poziom.swap(następny_poziom);
 
@@ -120,7 +120,7 @@ void BnB::ZnajdzUB()
 
 }
 
-int BnB::ZnajdzNajlepsze(MyList* przekazaneMiasta)
+int BnB::ZnajdzNajlepsze(MyList* przekazaneMiasta)  
 {	
 	miasta = przekazaneMiasta;
 	startoweMiasto = 0;
@@ -152,4 +152,12 @@ int BnB::ZnajdzNajlepsze(MyList* przekazaneMiasta)
 	}
 
 	return waga_UB;
+}
+
+void BnB::showWynik()
+{
+	std::cout << "\nwaga: " << waga_UB << "\nścieżka: ";
+	for (int& przystanek : sciezka_UB) {
+		std::cout << przystanek;
+	}
 }

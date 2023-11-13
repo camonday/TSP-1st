@@ -24,12 +24,18 @@
     <ClCompile Include="BnB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Algorytm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BnB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Algorytm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

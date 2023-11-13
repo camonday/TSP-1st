@@ -7,6 +7,7 @@
 #include <vector>
 #include "MyList.h"
 #include "BnB.h"
+#include "Algorytm.h"
 
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
@@ -48,158 +49,93 @@ void displayMenu(const string& info)
 {
     std::cout << std::endl;
     std::cout << info << std::endl;
-    std::cout << "1.Wczytaj z pliku" << std::endl;
-    std::cout << "2.Utworz losowo" << std::endl;
-    std::cout << "3.Wyswietl" << std::endl;
-    std::cout << "4.Test (pomiary)" << std::endl;
-    std::cout << "0.Powrot do menu" << std::endl;
+    std::cout << "1.Przegląd Zupełny" << std::endl;
+    std::cout << "2.BnB" << std::endl;
+    std::cout << "3.---" << std::endl;
+    std::cout << "4.---" << std::endl;
     std::cout << "Podaj opcje:";
 }
+
+void testy(string nazwa, Algorytm* algorytm);
 
 steady_clock::time_point timeStart, timeEnd;
 duration<double> timeTemp, timeSum;
 MyList miasta; 
-int aaa;
+int rozmiar;
 string fileName;
 BnB* algortmBnB = new BnB();
 
-void menu_brute()
+char menu_algorytm()
 {
     char opt;
-    
-    int index, value;
-    int trial = 100, population;
-    WynikB wynik;
-   
-    
-
-    do {
-        displayMenu("--- PRZEGLAD ZUPELNY ---");
-        opt = _getche();
-        std::cout << std::endl;
-        switch (opt) {
-        case '1': //tutaj wczytytwanie danych z pliku
-            std::cout << " Podaj nazwę zbioru:";
-            std::cin >> fileName;
-            miasta.loadFromFile(fileName);
-            miasta.display();
-            //brute
-            
-            timeStart = steady_clock::now();
-
-            wynik = brute(miasta, miasta.size());
-            //aaa = algortmBnB->ZnajdzNajlepsze(&miasta);
-
-            timeEnd = steady_clock::now();
-
-            timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
-            
-            std::cout << "\n\nROZWIAZANIE\n" /* << aaa*/;
-            showWynikB(wynik, miasta.size());
-            std::cout << "\n czas: " << timeTemp.count() << " sekund";
-            break;
-
-        case '2':  //tutaj generowanie danych
-            std::cout << "Podaj ilość miast:";
-            std::cin >> value;
-            miasta.generate(value);
-            miasta.display();
-            timeStart = steady_clock::now();
-
-            wynik = brute(miasta, miasta.size());
-
-            timeEnd = steady_clock::now();
-
-            timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
-
-            std::cout << "\n\nROZWIAZANIE\n";
-            showWynikB(wynik, miasta.size());
-            std::cout << "\n czas: " << timeTemp.count() << " sekund";
-
-            break;
-
-        case '3':  //tutaj wyświetlanie danych
-            miasta.display();
-            break;
-
-        case '4': //tutaj nasza funkcja do eksperymentów (pomiary czasów i generowanie daneych) - nie będzie testowana przez prowadzącego
-            // można sobie tu dodać własne case'y
-
-
-            std::ofstream file("test_brute1.txt");
-            file.imbue(std::locale(std::locale::classic(), new Comma));
-            int* values = new int[trial];
-            int* indexes = new int[trial];
-            for (int n = 11; timeSum.count()<=300; n++) {
-                cout << n;
-                timeSum -= timeSum;
-                for (int i = 1; i < 100 && timeSum.count() <= 300; i++) {
-                    miasta.clear();
-                    miasta.generate(n);
-
-                    //std::cout << std::endl << i;
-                    timeStart = steady_clock::now();
-
-                    brute(miasta, n);
-
-                    timeEnd = steady_clock::now();
-
-                    timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
-                    timeSum += timeTemp;
-                    //std::cout << " timeTemp " << timeTemp.count();
-                }
-
-                file << n <<" " << timeSum.count()<<"\n";
-
-            }
-        }
-
-    } while (opt != '0');
+    displayMenu("---KTÓRY ALGORYTM?---");
+    opt = _getche();
+    std::cout << std::endl;
+    return opt;
 }
 
 int main(int argc, char* argv[])
 {
 
     char option;
+    char option2;
     do {
         std::cout << std::endl;
         std::cout << "==== MENU GLOWNE ===" << std::endl;
-        std::cout << "1.Brute force" << std::endl;
-        std::cout << "2.BnB" << std::endl;
-        std::cout << "3.---" << std::endl;
+        std::cout << "1.Wczytaj z pliku" << std::endl;
+        std::cout << "2.Wylosuj" << std::endl;
+        std::cout << "3.Wyświetl" << std::endl;
+        std::cout << "4.Znajdź drogę" << std::endl;
+        std::cout << "--------------------" << std::endl;
+        std::cout << "5.Testy" << std::endl;
         std::cout << "0.Wyjscie" << std::endl;
         std::cout << "Podaj opcje:";
         option = _getche();
         std::cout << std::endl;
 
         switch (option) {
-        case '1':
-            menu_brute();
-            break;
-
-        case '2':
-           // menu_BnB();
+        case '1':   // 1. Wczytaj z pliku
             std::cout << " Podaj nazwę zbioru:";
             std::cin >> fileName;
             miasta.loadFromFile(fileName);
             miasta.display();
-            
-
-            timeStart = steady_clock::now();
-
-            
-            aaa = algortmBnB->ZnajdzNajlepsze(&miasta);
-
-            timeEnd = steady_clock::now();
-
-            timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
-
-            std::cout << "\n\nROZWIAZANIE\n"  << aaa;
-            std::cout << "\n czas: " << timeTemp.count() << " sekund";
-            break;
             break;
 
-        case '3':
+        case '2':   // 2. Wylosuj
+            std::cout << " Podaj ilość miast:";
+            std::cin >> rozmiar;
+            miasta.generate(rozmiar);
+
+        case '3':   // 3. Wyświetl
+            miasta.display();
+            break;
+
+        case '4': // 4. Znajdź sciezkę
+            //zapytaj jaką metodą
+            option2 = menu_algorytm();
+
+            switch (option2) {
+            case '1':
+
+                break;
+            case '2':
+                algortmBnB->ZnajdzNajlepsze(&miasta);
+                algortmBnB->showWynik();
+                break;
+            }
+            break;
+
+        case '5': //5. testy
+            //zapytaj o metode
+            option2 = menu_algorytm();
+
+            switch (option2) {
+            case '1':
+                break;
+            case '2':
+                testy("BnB0_test.txt", algortmBnB);
+                break;
+            }
             break;
         }
 
@@ -292,3 +228,38 @@ void showWynikB(WynikB wynik, int ileMiast)
     std::cout << 0 << " ";
     cout << "\nSUMA: " << wynik.suma;
 }
+
+void testy(string nazwa, Algorytm* algorytm)
+{
+    std::ofstream file(nazwa);
+    file.imbue(std::locale(std::locale::classic(), new Comma));
+    int index, value;
+    int trial = 100, population;
+
+    int* values = new int[trial];
+    int* indexes = new int[trial];
+    for (int n = 5; timeSum.count() <= 300; n++) {
+        cout << n;
+        timeSum -= timeSum;
+        for (int i = 1; i < 100 && timeSum.count() <= 300; i++) {
+            miasta.clear();
+            miasta.generate(n);
+
+            // --- pomiar czasu
+            timeStart = steady_clock::now();
+
+            algorytm->ZnajdzNajlepsze(&miasta);
+
+            timeEnd = steady_clock::now();
+
+            timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
+            timeSum += timeTemp;
+            //std::cout << " timeTemp " << timeTemp.count();
+        }
+
+        file << n << " " << timeSum.count() << "\n";
+
+    }
+    file.close();
+}
+
