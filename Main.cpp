@@ -119,7 +119,12 @@ int main(int argc, char* argv[])
 
                 break;
             case '2':
+                timeStart = steady_clock::now();
                 algortmBnB->ZnajdzNajlepsze(&miasta);
+                timeEnd = steady_clock::now();
+
+                timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
+                std::cout << "\n czas: " << timeTemp.count() << " sekund";
                 algortmBnB->showWynik();
                 break;
             }

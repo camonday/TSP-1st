@@ -37,6 +37,7 @@ void BnB::OdwiedzPrzystanek()
 			if (nowy->waga <= waga_UB) {
 				//std::cout << sasiad << ", ";
 				waga_UB = nowy->waga;
+				sciezka_UB.clear();
 				for (int& przystanek : nowy->sciezka) {
 					sciezka_UB.push_back(przystanek);
 				}
@@ -158,6 +159,6 @@ void BnB::showWynik()
 {
 	std::cout << "\nwaga: " << waga_UB << "\nścieżka: ";
 	for (int& przystanek : sciezka_UB) {
-		std::cout << przystanek;
+		std::cout << przystanek<<" ";
 	}
 }
