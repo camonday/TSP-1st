@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <queue>
 #include <list>
-#include "MyList.h"
+#include "Reprezentacja.h"
 #include "Algorytm.h"
 
 
@@ -22,7 +22,7 @@ private:
 	 int waga_UB;
 	 int startoweMiasto;
 	 Przystanek* badany;
-	 MyList* miasta;
+	 Reprezentacja* miasta;
 	
 	 void OdwiedzPrzystanek(); //odwiedza badanego
 	 void idzDo_NastepnyPoziom();
@@ -30,6 +30,6 @@ private:
 	 void ZnajdzUB();
 
 public:
-	 int ZnajdzNajlepsze(MyList* przekazaneMiasta) override;
+	 int ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta) override;
 	 void showWynik() override;
 };

@@ -18,7 +18,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyList.cpp">
+    <ClCompile Include="Reprezentacja.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BnB.cpp">
@@ -29,7 +29,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyList.h">
+    <ClInclude Include="Reprezentacja.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BnB.h">

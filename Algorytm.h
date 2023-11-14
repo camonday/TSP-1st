@@ -1,9 +1,9 @@
 #pragma once
-#include "MyList.h"
+#include "Reprezentacja.h"
 
 class Algorytm 
 {
 public:
-	virtual int ZnajdzNajlepsze(MyList* przekazaneMiasta);
+	virtual int ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta);
 	virtual void showWynik();
 };

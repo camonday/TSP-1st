@@ -1,7 +1,7 @@
 #include "Algorytm.h"
 #include <iostream>
 
-int Algorytm::ZnajdzNajlepsze(MyList* przekazaneMiasta)
+int Algorytm::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)
 {
     std::cout << "nie wybrales algorytmu";
     return 0;

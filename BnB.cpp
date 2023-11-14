@@ -92,7 +92,7 @@ void BnB::ZnajdzUB()
 
 	// lista nieodwiedzonych sasiadow
 	std::list<int> nieodwiedzeni;
-	for (int i = 1; i < miasta->size(); i++)
+	for (int i = 1; i < miasta->getSize(); i++)
 	{
 		nieodwiedzeni.push_back(i);
 	}
@@ -121,7 +121,7 @@ void BnB::ZnajdzUB()
 
 }
 
-int BnB::ZnajdzNajlepsze(MyList* przekazaneMiasta)  
+int BnB::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)  
 {	
 	miasta = przekazaneMiasta;
 	startoweMiasto = 0;
@@ -132,7 +132,7 @@ int BnB::ZnajdzNajlepsze(MyList* przekazaneMiasta)
 	//stworz przystanek startowy
 	Przystanek* nowy = new Przystanek();
 	nowy->id = startoweMiasto;
-	for (int i = 1; i < miasta->size(); i++) {
+	for (int i = 1; i < miasta->getSize(); i++) {
 		nowy->jno.push_back(i);
 	}
 	nowy->waga = 0;

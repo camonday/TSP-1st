@@ -130,12 +130,12 @@
     <ClCompile Include="Algorytm.cpp" />
     <ClCompile Include="BnB.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MyList.cpp" />
+    <ClCompile Include="Reprezentacja.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorytm.h" />
     <ClInclude Include="BnB.h" />
-    <ClInclude Include="MyList.h" />
+    <ClInclude Include="Reprezentacja.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

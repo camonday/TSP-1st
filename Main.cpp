@@ -5,7 +5,7 @@
 #include <chrono>
 #include <windows.h>
 #include <vector>
-#include "MyList.h"
+#include "Reprezentacja.h"
 #include "BnB.h"
 #include "Algorytm.h"
 
@@ -33,7 +33,7 @@ struct WynikB {
     int suma = INT_MAX;
     int zmienna = -1;
 };
-WynikB brute(MyList miasta, int ileMiast);
+WynikB brute(Reprezentacja miasta, int ileMiast);
 int silnia(int n);
 void showWynikB(WynikB wynik, int ileMiast);
 
@@ -60,7 +60,7 @@ void testy(string nazwa, Algorytm* algorytm);
 
 steady_clock::time_point timeStart, timeEnd;
 duration<double> timeTemp, timeSum;
-MyList miasta; 
+Reprezentacja miasta; 
 int rozmiar;
 string fileName;
 BnB* algortmBnB = new BnB();
@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-WynikB brute(MyList miasta, int ileMiast)
+WynikB brute(Reprezentacja miasta, int ileMiast)
 {
     
     WynikB wynik;
