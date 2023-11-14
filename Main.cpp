@@ -8,6 +8,7 @@
 #include "Reprezentacja.h"
 #include "BnB.h"
 #include "Algorytm.h"
+#include "Zupelny.h"
 
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
@@ -64,6 +65,7 @@ Reprezentacja miasta;
 int rozmiar;
 string fileName;
 BnB* algortmBnB = new BnB();
+Zupelny* algorytmZupelny = new Zupelny();
 
 char menu_algorytm()
 {
@@ -116,7 +118,13 @@ int main(int argc, char* argv[])
 
             switch (option2) {
             case '1':
+                timeStart = steady_clock::now();
+                algorytmZupelny->ZnajdzNajlepsze(&miasta);
+                timeEnd = steady_clock::now();
 
+                timeTemp = duration_cast<duration<double>>(timeEnd - timeStart);
+                std::cout << "\n czas: " << timeTemp.count() << " sekund";
+                algorytmZupelny->showWynik();
                 break;
             case '2':
                 timeStart = steady_clock::now();

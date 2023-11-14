@@ -1,4 +1,4 @@
-#include "Algorytm.h"
+﻿#include "Algorytm.h"
 #include <iostream>
 
 int Algorytm::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)
@@ -9,5 +9,8 @@ int Algorytm::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)
 
 void Algorytm::showWynik()
 {
-    std::cout << "nie wybrales algorytmu";
+	std::cout << "\nwaga: " << waga_UB << "\nścieżka: ";
+	for (int& przystanek : sciezka_UB) {
+		std::cout << przystanek << " ";
+	}
 }

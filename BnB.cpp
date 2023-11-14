@@ -154,11 +154,3 @@ int BnB::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)
 
 	return waga_UB;
 }
-
-void BnB::showWynik()
-{
-	std::cout << "\nwaga: " << waga_UB << "\nścieżka: ";
-	for (int& przystanek : sciezka_UB) {
-		std::cout << przystanek<<" ";
-	}
-}

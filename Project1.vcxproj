@@ -131,11 +131,13 @@
     <ClCompile Include="BnB.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Reprezentacja.cpp" />
+    <ClCompile Include="Zupelny.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorytm.h" />
     <ClInclude Include="BnB.h" />
     <ClInclude Include="Reprezentacja.h" />
+    <ClInclude Include="Zupelny.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

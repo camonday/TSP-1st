@@ -18,8 +18,6 @@ class BnB : public Algorytm {
 private:
 	 std::queue <Przystanek*> obecny_poziom;
 	 std::queue <Przystanek*> następny_poziom;
-	 std::list <int> sciezka_UB;
-	 int waga_UB;
 	 int startoweMiasto;
 	 Przystanek* badany;
 	 Reprezentacja* miasta;
@@ -31,5 +29,4 @@ private:
 
 public:
 	 int ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta) override;
-	 void showWynik() override;
 };
