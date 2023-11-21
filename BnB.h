@@ -6,20 +6,22 @@
 
 
 	struct Przystanek {
-		int id;
-		int waga;
-		int lower_bound;
+		int id = -1;
+		int waga = 0;
+		int lower_bound = 0;
 		std::list<int> sciezka;
 		std::list <int> jno; //Jeszcze Nie Odwiedzeni
+
 	};
 
 class BnB : public Algorytm {
 	
 private:
-	 std::queue <Przystanek*> obecny_poziom;
-	 std::queue <Przystanek*> następny_poziom;
+	 std::queue <Przystanek> obecny_poziom;
+	 std::queue <Przystanek> następny_poziom;
 	 int startoweMiasto;
-	 Przystanek* badany;
+	 int new_deleteCounter;
+	 Przystanek badany;
 	 Reprezentacja* miasta;
 	
 	 void OdwiedzPrzystanek(); //odwiedza badanego

@@ -4,57 +4,56 @@
 void BnB::OdwiedzPrzystanek()
 {
 	//std::cout << "\n\n Nowy badany: " << badany->id<<" sasiedzi: ";
-	for (int& sasiad : badany->jno)
+	for (int& sasiad : badany.jno)
 	{
 		
 		//stworz przystanek
-		Przystanek* nowy = new Przystanek();
-		nowy->id = sasiad;
+		Przystanek nowy;
+		nowy.id = sasiad;
 		//std::cout << "\nbadany: "<<badany->id<<" sasiad: "<<sasiad;
-		nowy->waga = (badany->waga) + miasta->findDistance(badany->id, nowy->id);
+		nowy.waga = (badany.waga) + miasta->findDistance(badany.id, nowy.id);
 
 		//utworz liste jeszcze nie odwiedzonych
-		for (int& nie_odwiedzony : badany->jno) {
-			if (nie_odwiedzony != nowy->id) {
-				nowy->jno.push_back(nie_odwiedzony);
+		for (int& nie_odwiedzony : badany.jno) {
+			if (nie_odwiedzony != nowy.id) {
+				nowy.jno.push_back(nie_odwiedzony);
 			}
 		}
 
 		//utworz sciezke ktora doprowadzila do tego punktu
-		for (int& odwiedzony : badany->sciezka) {
-			nowy->sciezka.push_back(odwiedzony);
+		for (int& odwiedzony : badany.sciezka) {
+			nowy.sciezka.push_back(odwiedzony);
 		}
-		nowy->sciezka.push_back(nowy->id);
+		nowy.sciezka.push_back(nowy.id);
 
 		//jesli przedostatni przystanek to policz juz wage calej sciezki
-		if (nowy->jno.size() == 1) {
+		if (nowy.jno.size() == 1) {
 			
-			nowy->waga += miasta->findDistance(nowy->id, nowy->jno.front());
-			nowy->waga += miasta->findDistance(nowy->jno.front(), startoweMiasto);
+			nowy.waga += miasta->findDistance(nowy.id, nowy.jno.front());
+			nowy.waga += miasta->findDistance(nowy.jno.front(), startoweMiasto);
 
 			
 			//jesli cala sciezka jest lepsza niz dotychczasowy najlepszy to mamy nowego najlepszego
-			if (nowy->waga <= waga_UB) {
+			if (nowy.waga < waga_UB) {
 				//std::cout << sasiad << ", ";
-				waga_UB = nowy->waga;
+				waga_UB = nowy.waga;
 				sciezka_UB.clear();
-				for (int& przystanek : nowy->sciezka) {
+				for (int& przystanek : nowy.sciezka) {
 					sciezka_UB.push_back(przystanek);
 				}
-				sciezka_UB.push_back(nowy->jno.front());
+				sciezka_UB.push_back(nowy.jno.front());
 				sciezka_UB.push_back(startoweMiasto);
 			}
 
-			//sprawdzilismy jedyna sciezke ktora wychodzi z nowego - mozemy go usunac
-			delete nowy;
 		}
 		//W przeciwnym wypadku sprawdz czy sciezki od niego wychodzace maja szanse byc lepsze od obecnie najlepszego
 		else {
-			nowy->lower_bound = PoliczLB(*nowy);
-			if (nowy->lower_bound <= waga_UB) {
+			nowy.lower_bound = PoliczLB(nowy);
+			if (nowy.lower_bound < waga_UB) {
 				następny_poziom.push(nowy); //std::cout << sasiad << ", ";
+				//if (następny_poziom.size() > 25000000)
+				//	throw std::exception("ryzyko pamieci");
 			}
-			else delete nowy;
 		}
 		
 	}
@@ -123,6 +122,7 @@ void BnB::ZnajdzUB()
 
 int BnB::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)  
 {	
+	//new_deleteCounter = 0;
 	miasta = przekazaneMiasta;
 	startoweMiasto = 0;
 	//2) upper bound
@@ -130,13 +130,13 @@ int BnB::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)
 
 	//3) budowa drzewa
 	//stworz przystanek startowy
-	Przystanek* nowy = new Przystanek();
-	nowy->id = startoweMiasto;
+	Przystanek nowy;
+	nowy.id = startoweMiasto;
 	for (int i = 1; i < miasta->getSize(); i++) {
-		nowy->jno.push_back(i);
+		nowy.jno.push_back(i);
 	}
-	nowy->waga = 0;
-	nowy->sciezka.push_back(startoweMiasto);
+	nowy.waga = 0;
+	nowy.sciezka.push_back(startoweMiasto);
 
 	//dodaj przystanek do listy do odwiedzenia
 	następny_poziom.push(nowy);
@@ -148,9 +148,7 @@ int BnB::ZnajdzNajlepsze(Reprezentacja* przekazaneMiasta)
 			badany = obecny_poziom.front();
 			OdwiedzPrzystanek();
 			obecny_poziom.pop();
-			delete badany;
 		}
 	}
-
 	return waga_UB;
 }

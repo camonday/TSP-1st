@@ -1,0 +1,12 @@
+5 0,0034086 0
+6 0,0123463 0
+7 0,0542757 0
+8 0,303788 0
+9 1,5479 0
+10 8,73606 0
+11 22,3633 15
+12 14,6187 54
+13 6,6909 81
+
+
+--- test przy ograniczeniu czasowym 1s i pamieciowym 2Miliony węzłów w kolejce

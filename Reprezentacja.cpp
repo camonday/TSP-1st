@@ -14,7 +14,7 @@ void Reprezentacja::display() { //wyswietlanie listy od przodu i tylu
     }
 
     for (int i = 0; i < size; i++) {
-        std::cout <<"\n      "<<i<<"\t|";
+        std::cout <<"\n     "<<i<<"\t|";
         for (int j = 0; j < size; j++) {
             std::cout << dane[i][j]<<"\t|";
         }
